@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ZQC-Bx-UsV">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="Pip-W0-mh9">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="ZQC-Bx-UsV" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ETh-0J-bF5">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dKV-GG-Nkb" kind="relationship" relationship="rootViewController" id="zJx-6j-jQc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rt8-R8-HrL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-446" y="20"/>
+        </scene>
+        <!--View Controller - Sound Wave Demo app-->
+        <scene sceneID="Dy9-tS-mhw">
+            <objects>
+                <viewController id="dKV-GG-Nkb" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Yna-VL-HmO">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y55-0K-qhi">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Launch sound visualizer">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="2" kind="push" id="T2Z-nj-yk1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Y55-0K-qhi" firstAttribute="top" secondItem="Yna-VL-HmO" secondAttribute="top" constant="54" id="2k1-Aw-NDt"/>
+                            <constraint firstItem="Y55-0K-qhi" firstAttribute="centerX" secondItem="Yna-VL-HmO" secondAttribute="centerX" type="default" id="eoZ-3u-QjB"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Sound Wave Demo app" id="3Ko-xy-jHx"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2iD-Si-64K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="124" y="33"/>
+        </scene>
+        <!--Sound Demo View Controller - Waveform visualizer-->
+        <scene sceneID="5">
+            <objects>
+                <viewController id="2" customClass="ATSoundDemoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KF3-E2-xiA">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="204" type="user" id="g1u-Dy-8qr"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="q41-fS-Vvg" kind="embed" identifier="waveFormControllerSegueIdentifier" id="Lgn-Nh-bZM"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KF3-E2-xiA" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="HGw-vI-uwR"/>
+                            <constraint firstItem="KF3-E2-xiA" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="hrm-hV-GFV"/>
+                            <constraint firstItem="KF3-E2-xiA" firstAttribute="top" secondItem="3" secondAttribute="top" constant="44" type="user" id="zPx-dJ-cg3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Waveform visualizer" id="9h0-sS-5Re"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="508" y="33"/>
+        </scene>
+        <!--Wave Form View Controller-->
+        <scene sceneID="MQ1-IE-5GY">
+            <objects>
+                <viewController id="q41-fS-Vvg" customClass="ATWaveFormViewController" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="0og-zU-H8g" customClass="GLKView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="204"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2vz-FK-PR3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1035" y="215"/>
+        </scene>
+    </scenes>
+    <classes>
+        <class className="ATSoundDemoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ATSoundDemoViewController.h"/>
+        </class>
+        <class className="ATWaveFormViewController" superclassName="GLKViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ATWaveFormViewController.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
