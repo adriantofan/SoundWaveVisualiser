@@ -260,8 +260,8 @@ static OSStatus at_inRenderCallBackProc(	void *							inRefCon,
   AVAudioSession *session = [ AVAudioSession sharedInstance ];
   // Request the MultiRoute category (1)
   if ([session setPreferredSampleRate:self.graphSampleRate error:&errRet] && !errRet) {
-    if ([session setCategory:AVAudioSessionCategoryMultiRoute error:&errRet] && !errRet){
-      //      [session setMode:AVAudioSessionModeMeasurement error:&errRet];
+    if ([session setCategory:AVAudioSessionCategoryPlayAndRecord error:&errRet] && !errRet){
+      [session setMode:AVAudioSessionModeMeasurement error:&errRet];
       if ([session setPreferredIOBufferDuration:.005 error:&errRet] && !errRet) {
         if ([session setActive:YES error:&errRet] && !errRet) {
           self.graphSampleRate = session.sampleRate;
