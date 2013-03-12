@@ -50,6 +50,7 @@
 		402BFDD416EF40AF00F80904 /* ATVertexAttribArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATVertexAttribArray.m; sourceTree = "<group>"; };
 		402BFDD516EF40AF00F80904 /* ATWaveFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATWaveFormViewController.h; sourceTree = "<group>"; };
 		402BFDD616EF40AF00F80904 /* ATWaveFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATWaveFormViewController.m; sourceTree = "<group>"; };
+		4076E77616EF804A00483C10 /* ATOSSErrorHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATOSSErrorHelpers.h; sourceTree = "<group>"; };
 		409A381216E66BEF00EE79E2 /* SoundWaveVisualiser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundWaveVisualiser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		409A381516E66BEF00EE79E2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		409A381716E66BEF00EE79E2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -105,6 +106,7 @@
 				402BFDCB16EF40AF00F80904 /* ATDCRejectionFilter.m */,
 				402BFDCC16EF40AF00F80904 /* ATSoundSessionIO.h */,
 				402BFDCD16EF40AF00F80904 /* ATSoundSessionIO.m */,
+				4076E77616EF804A00483C10 /* ATOSSErrorHelpers.h */,
 			);
 			path = "sound session";
 			sourceTree = "<group>";

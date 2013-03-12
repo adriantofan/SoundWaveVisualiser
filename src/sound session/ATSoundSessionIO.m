@@ -28,17 +28,16 @@
 
 #import "ATSoundSessionIO.h"
 #import "ATDCRejectionFilter.h"
+#import "ATOSSErrorHelpers.h"
 
 
 
 #pragma mark - error helpers declaration
 
-static NSError* CheckError(OSStatus error, NSString *operation);
-static void ifNotError(OSStatus errorCode, NSString *operation,void(^success )(void),void(^failure)(NSError* err));
 
 #pragma mark - Callbacks
 
-static OSStatus inRenderCallBackProc(	void *							inRefCon,
+static OSStatus at_inRenderCallBackProc(	void *							inRefCon,
                                      AudioUnitRenderActionFlags *	ioActionFlags,
                                      const AudioTimeStamp *			inTimeStamp,
                                      UInt32							inBusNumber,
@@ -58,7 +57,7 @@ static OSStatus inRenderCallBackProc(	void *							inRefCon,
                                            ioData,
                                            SELF.processABL);
   if (err) {
-    NSError* error =  CheckError(err,@"unable to AudioConverterConvertComplexBuffer");
+    NSError* error =  at_checkOSStatusError(err,@"unable to AudioConverterConvertComplexBuffer");
     NSLog(@"Conversion error in render callback %@:",error);
     return err; }
   
@@ -179,7 +178,7 @@ static OSStatus inRenderCallBackProc(	void *							inRefCon,
     }
   };
   
-  ifNotError(AudioUnitGetProperty(self.ioUnit,
+  at_ifNotError(AudioUnitGetProperty(self.ioUnit,
                                   kAudioUnitProperty_MaximumFramesPerSlice,
                                   kAudioUnitScope_Global,
                                   0, &maxFPS,
@@ -195,11 +194,11 @@ static OSStatus inRenderCallBackProc(	void *							inRefCon,
                  processABL_->mBuffers[i].mDataByteSize = maxFPS * sizeof(SInt32);
                  processABL_->mBuffers[i].mNumberChannels = 1;
                }
-               ifNotError(AUGraphStart(processingGraph_),
+               at_ifNotError(AUGraphStart(processingGraph_),
                           @"unable to start audio",
                           ^{
                             UInt32 size = sizeof(inputStreamFormat_);
-                            ifNotError(AudioUnitGetProperty(ioUnit_,
+                            at_ifNotError(AudioUnitGetProperty(ioUnit_,
                                                             kAudioUnitProperty_StreamFormat,
                                                             kAudioUnitScope_Output,
                                                             1,
@@ -207,7 +206,7 @@ static OSStatus inRenderCallBackProc(	void *							inRefCon,
                                                             &size),
                                        @"couldn't get the remote I/O unit's output client format",
                                        ^{
-                                         ifNotError(AudioConverterNew(&inputStreamFormat_, &processStreamFormat_, &audioConverter_)
+                                         at_ifNotError(AudioConverterNew(&inputStreamFormat_, &processStreamFormat_, &audioConverter_)
                                                     , @"couldn't setup AudioConverter",
                                                     ^{
                                                       isProcessingSound_ = YES;
@@ -224,7 +223,7 @@ static OSStatus inRenderCallBackProc(	void *							inRefCon,
 
 -(BOOL)stopSoundProcessing:(NSError**)error{
   __block BOOL success = TRUE;
-  ifNotError(AUGraphStop(processingGraph_),
+  at_ifNotError(AUGraphStop(processingGraph_),
              @"unable to stop audio",
              ^{
                isProcessingSound_ = NO;
@@ -316,7 +315,7 @@ static OSStatus inRenderCallBackProc(	void *							inRefCon,
   UInt32 enableInput = 1; // must enable the imput of the unit
   
   __block AURenderCallbackStruct  inRenderProc;
-  inRenderProc.inputProc = &inRenderCallBackProc;
+  inRenderProc.inputProc = &at_inRenderCallBackProc;
   inRenderProc.inputProcRefCon = (__bridge void*)self;
   __block AUNode ioNode;
   __block AudioUnit ioUnit;
@@ -334,11 +333,11 @@ static OSStatus inRenderCallBackProc(	void *							inRefCon,
     processingGraph_ = NULL;
   };
   // Create graph, than obtain audio units (3)
-  ifNotError(NewAUGraph(&processingGraph), @"couldn't create AUGraph with NewAUGraph", ^{
-    ifNotError(AUGraphAddNode(processingGraph, &ioUnitDesc, &ioNode), @"unable to add AUGraphAddNode to augraph", ^{
-      ifNotError(AUGraphOpen(processingGraph), @"Unable to instantiate audio unit in AUGraphOpen", ^{
-        ifNotError(AUGraphNodeInfo(processingGraph, ioNode, NULL, &ioUnit), @"Unable to get ioNode from audiograph  with AUGraphNodeInfo", ^{
-          ifNotError(AudioUnitSetProperty(ioUnit,
+  at_ifNotError(NewAUGraph(&processingGraph), @"couldn't create AUGraph with NewAUGraph", ^{
+    at_ifNotError(AUGraphAddNode(processingGraph, &ioUnitDesc, &ioNode), @"unable to add AUGraphAddNode to augraph", ^{
+      at_ifNotError(AUGraphOpen(processingGraph), @"Unable to instantiate audio unit in AUGraphOpen", ^{
+        at_ifNotError(AUGraphNodeInfo(processingGraph, ioNode, NULL, &ioUnit), @"Unable to get ioNode from audiograph  with AUGraphNodeInfo", ^{
+          at_ifNotError(AudioUnitSetProperty(ioUnit,
                                           kAudioOutputUnitProperty_EnableIO,
                                           kAudioUnitScope_Input,
                                           ioUnitInputElement,
@@ -346,7 +345,7 @@ static OSStatus inRenderCallBackProc(	void *							inRefCon,
                                           sizeof(enableInput)),
                      @"unable to enable recording audio AudioUnitSetProperty kAudioOutputUnitProperty_EnableIO",
                      ^{
-                       ifNotError(AudioUnitSetProperty(ioUnit,
+                       at_ifNotError(AudioUnitSetProperty(ioUnit,
                                                        kAudioUnitProperty_StreamFormat,
                                                        kAudioUnitScope_Output,
                                                        ioUnitInputElement,
@@ -355,7 +354,7 @@ static OSStatus inRenderCallBackProc(	void *							inRefCon,
                                                        ),
                                   @"unable to set stream format for the input elements output scope",
                                   ^{
-                                    ifNotError(AudioUnitSetProperty(ioUnit,
+                                    at_ifNotError(AudioUnitSetProperty(ioUnit,
                                                                     kAudioUnitProperty_StreamFormat,
                                                                     kAudioUnitScope_Input,
                                                                     ioUnitOutputElement,
@@ -364,7 +363,7 @@ static OSStatus inRenderCallBackProc(	void *							inRefCon,
                                                                     ),
                                                @"unable to set stream format for the input elements output scope",
                                                ^{
-                                                 ifNotError(AudioUnitSetProperty(ioUnit,
+                                                 at_ifNotError(AudioUnitSetProperty(ioUnit,
                                                                                  kAudioUnitProperty_SetRenderCallback,
                                                                                  kAudioUnitScope_Input,
                                                                                  ioUnitOutputElement,
@@ -372,7 +371,7 @@ static OSStatus inRenderCallBackProc(	void *							inRefCon,
                                                                                  sizeof(inRenderProc)),
                                                             @"couldn't set remote i/o render callback",
                                                             ^{
-                                                              ifNotError(AUGraphInitialize(processingGraph),
+                                                              at_ifNotError(AUGraphInitialize(processingGraph),
                                                                          @"unable to itialize audio graph AUGraphInitialize",
                                                                          ^{
                                                                            ioUnit_ = ioUnit;
@@ -400,33 +399,3 @@ static OSStatus inRenderCallBackProc(	void *							inRefCon,
 
 
 @end
-
-#pragma mark - error helpers implementation
-
-static NSError* CheckError(OSStatus error, NSString *operation)
-{
-	if (error == noErr) return  nil;
-	
-	char str[20];
-	// see if it appears to be a 4-char-code
-	*(UInt32 *)(str + 1) = CFSwapInt32HostToBig(error);
-	if (isprint(str[1]) && isprint(str[2]) && isprint(str[3]) && isprint(str[4])) {
-		str[0] = str[5] = '\'';
-		str[6] = '\0';
-	} else
-		// no, format it as an integer
-		sprintf(str, "%d", (int)error);
-  NSError *err = [NSError errorWithDomain:[NSString stringWithCString:str encoding:NSUTF8StringEncoding]
-                                     code:0
-                                 userInfo:nil];
-  return err;
-}
-
-static void ifNotError(OSStatus errorCode, NSString *operation,void(^success )(void),void(^failure)(NSError* err)){
-  NSError* result;
-  if ((result = CheckError(errorCode, operation))) {
-    failure?failure(result):(void)NULL;
-  }else{
-    success?success():(void)NULL;
-  }
-}
