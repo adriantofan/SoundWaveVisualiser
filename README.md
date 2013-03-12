@@ -3,7 +3,7 @@ SoundWaveVisualiser
 
 iOS live sound wave visualiser 
 
-![App screenshot](https://raw.github.com/adriantofan/SoundWaveVisualiser/master/doc/img/wave.png "App screenshot")
+![App screenshot](https://github.com/adriantofan/SoundWaveVisualiser/raw/master/doc/img/wave.PNG "App screenshot")
 
 Features
 --------
