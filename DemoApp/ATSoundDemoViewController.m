@@ -67,7 +67,7 @@
   if([soundSessionIO_ prepareSoundProcessingGraph:nil]){
     [soundSessionIO_ startSoundProcessing:nil];
   }
-  soundSessionIO_.inBlock = ^(Float32* left, Float32*right, UInt32 inNumberFrames){
+  soundSessionIO_.inBlock = ^OSStatus(Float32* left, Float32*right, UInt32 inNumberFrames){
     //  float volume = 0.5;
     //  vDSP_vsmul(data, 1, &volume, data, 1, numFrames*numChannels);
     //  THIS.ringBuffer->AddNewInterleavedFloatData(data, numFrames, numChannels);
@@ -85,7 +85,7 @@
       data += 1;
     }
     drawBufferIdx += inNumberFrames;
-
+    return noErr;
   };
 
 }

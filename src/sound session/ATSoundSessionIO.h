@@ -45,7 +45,7 @@
 @property (nonatomic) ATDCRejectionFilter* rightChanelFilter;
 @property (nonatomic) double graphSampleRate;
 @property (nonatomic) AUGraph processingGraph;
-@property (nonatomic,copy) void(^inBlock)(Float32* left, Float32*right, UInt32 inNumberFrames);
+@property (nonatomic,copy) OSStatus(^inBlock)(Float32* left, Float32*right, UInt32 inNumberFrames);
 
 -(BOOL)startSoundProcessing:(NSError**)error;
 -(BOOL)stopSoundProcessing:(NSError**)error;

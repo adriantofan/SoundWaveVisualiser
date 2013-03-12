@@ -64,9 +64,9 @@ static OSStatus at_inRenderCallBackProc(	void *							inRefCon,
 
   if (SELF.inBlock) {
     if(ioData->mNumberBuffers > 1){
-      SELF.inBlock(SELF.processABL->mBuffers[0].mData,SELF.processABL->mBuffers[1].mData,inNumberFrames);
+      return SELF.inBlock(SELF.processABL->mBuffers[0].mData,SELF.processABL->mBuffers[1].mData,inNumberFrames);
     }else{
-      SELF.inBlock(SELF.processABL->mBuffers[0].mData,NULL,inNumberFrames);
+      return SELF.inBlock(SELF.processABL->mBuffers[0].mData,NULL,inNumberFrames);
     }
   }
   return noErr;
