@@ -175,7 +175,7 @@ static const float background[] =
 		}
     [context setLineWidth:2.f];
     lineEffect_.useConstantColor = GL_TRUE;
-    lineEffect_.constantColor = GLKVector4Make(0xa1/255.0f, 0xa9/255.0f, 0xb9/255.0f,aplha);
+    lineEffect_.constantColor = GLKVector4Make(0xfc/255.0f, 0x00/255.0f, 0x64/255.0f,aplha);
     [vertexAttribArray_ prepareToDrawWithAttrib:GLKVertexAttribPosition
                             numberOfCoordinates:2
                                            data:oscilLine_];
