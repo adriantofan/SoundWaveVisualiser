@@ -102,18 +102,23 @@ static const float background[] =
 - (void)viewDidLoad
 {
    [super viewDidLoad];
-   
-   // Verify the type of view created automatically by the
-   // Interface Builder storyboard
-   GLKView *view = (GLKView *)self.view;
-   NSAssert([view isKindOfClass:[GLKView class]],
-      @"View controller's view is not a GLKView");
-   view.context = [[AGLKContext alloc]
-      initWithAPI:kEAGLRenderingAPIOpenGLES2];
-   [AGLKContext setCurrentContext:view.context];
-   self.baseEffect = [[GLKBaseEffect alloc] init];
-   self.baseEffect.transform.modelviewMatrix =
-    GLKMatrix4Scale(GLKMatrix4Translate(GLKMatrix4Identity, -1.0, 0.0, 0.0),2.0,1.0,1.0);
+  // Verify the type of view created automatically by the
+  // Interface Builder storyboard
+  GLKView *view = (GLKView *)self.view;
+  NSAssert([view isKindOfClass:[GLKView class]],
+           @"View controller's view is not a GLKView");
+
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+  [super viewWillAppear:animated];
+  GLKView *view = (GLKView *)self.view;
+  view.context = [[AGLKContext alloc]
+                  initWithAPI:kEAGLRenderingAPIOpenGLES2];
+  [AGLKContext setCurrentContext:view.context];
+  self.baseEffect = [[GLKBaseEffect alloc] init];
+  self.baseEffect.transform.modelviewMatrix =
+  GLKMatrix4Scale(GLKMatrix4Translate(GLKMatrix4Identity, -1.0, 0.0, 0.0),2.0,1.0,1.0);
   
   lineEffect_ = [[GLKBaseEffect alloc] init];
   lineEffect_.useConstantColor = GL_TRUE;
@@ -134,10 +139,13 @@ static const float background[] =
     oscilLine_ = (GLfloat*)malloc(drawBufferLen * 2 * sizeof(GLfloat));
   }
   vertexAttribArray_ = [[ATVertexAttribArray alloc] initWithStride:0];
-}
 
+
+
+}
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
+  NSLog(@"drawInRect",nil);
 
 	int drawBuffer_i;
   GLfloat *oscilLine_ptr;
@@ -186,11 +194,12 @@ static const float background[] =
 
 - (void)viewDidDisappear:(BOOL)animated{
   [super viewDidDisappear:animated];
-  GLKView *view = (GLKView *)self.view;
-  [AGLKContext setCurrentContext:view.context];
   self.vertexBuffer = nil;
+  
   ((GLKView *)self.view).context = nil;
   [EAGLContext setCurrentContext:nil];
+  self.baseEffect = nil;
+  lineEffect_ = nil;
 }
 
 @end
