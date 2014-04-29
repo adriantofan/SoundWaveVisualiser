@@ -30,7 +30,7 @@
 // Simple class used to draw Vertex attrib array stored in system's memmory
 
 @interface ATVertexAttribArray : NSObject
-@property (nonatomic, assign) GLsizeiptr
+@property (nonatomic, assign) GLsizei
 stride;
 -(id)initWithStride:(GLsizeiptr)stride;
 

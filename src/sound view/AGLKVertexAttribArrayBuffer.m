@@ -31,7 +31,7 @@
 @property (nonatomic, assign) GLsizeiptr
    bufferSizeBytes;
 
-@property (nonatomic, assign) GLsizeiptr
+@property (nonatomic, assign) GLsizei
    stride;
 
 @end
@@ -47,7 +47,7 @@
 // This method creates a vertex attribute array buffer in
 // the current OpenGL ES context for the thread upon which this 
 // method is called.
-- (id)initWithAttribStride:(GLsizeiptr)aStride
+- (id)initWithAttribStride:(GLsizei)aStride
    numberOfVertices:(GLsizei)count
    bytes:(const GLvoid *)dataPtr
    usage:(GLenum)usage;

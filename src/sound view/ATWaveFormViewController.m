@@ -107,7 +107,7 @@ static const float background[] =
   GLKView *view = (GLKView *)self.view;
   NSAssert([view isKindOfClass:[GLKView class]],
            @"View controller's view is not a GLKView");
-
+  [view description];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
