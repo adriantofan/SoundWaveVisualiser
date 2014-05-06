@@ -253,6 +253,8 @@ static OSStatus at_inRenderCallBackProc(	void *							inRefCon,
 
 -(BOOL)initAudioSession:(NSError**)error{
   // Configure Audio Session
+  // why not output to skpeacker
+  // https://developer.apple.com/library/ios/qa/qa1754/_index.html
   NSError *errRet;
   self.graphSampleRate = 44100.0;
   self.leftChanelFilter = [[ATDCRejectionFilter alloc] init];
