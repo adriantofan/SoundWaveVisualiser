@@ -110,6 +110,8 @@ static OSStatus at_inRenderCallBackProc(	void *							inRefCon,
   processABL_ = NULL;
   leftChanelFilter_ = nil;
   rightChanelFilter_ = nil;
+  [[AVAudioSession sharedInstance] setActive:NO error:nil];
+
 
 }
 
@@ -148,6 +150,8 @@ static OSStatus at_inRenderCallBackProc(	void *							inRefCon,
     free(processABL_);
     processABL_ = NULL;
   }
+  [[AVAudioSession sharedInstance] setActive:NO error:nil];
+
   return isProcessingSound_;
 }
 
