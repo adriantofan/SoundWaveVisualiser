@@ -25,8 +25,8 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 
 #import <GLKit/GLKit.h>
-#define kNumDrawBuffers 30
-#define kDefaultDrawSamples 1024
+#define kNumDrawBuffers 3
+#define kDefaultDrawSamples 10240
 #if __cplusplus
 extern "C" {
 #endif
@@ -45,6 +45,7 @@ int extern drawBufferLen_alloced;
 
 
 @interface ATWaveFormViewController : GLKViewController
+
 @property (strong, nonatomic) GLKBaseEffect 
    *baseEffect;
 @property (strong, nonatomic) AGLKVertexAttribArrayBuffer 
