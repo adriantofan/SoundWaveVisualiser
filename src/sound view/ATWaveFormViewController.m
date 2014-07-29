@@ -190,8 +190,8 @@ static const float background[] =
 	}  
 }
 
-- (void)viewDidDisappear:(BOOL)animated{
-  [super viewDidDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated{
+  [super viewWillDisappear:animated];
   self.vertexBuffer = nil;
   
   ((GLKView *)self.view).context = nil;
